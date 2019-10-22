@@ -10,17 +10,15 @@
 
     <!-- Font Awesome CSS Icons (For cool glyphicons) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Style to fix the issue of text extending past card length -->
     <style>
         .card-body a {
             word-break: break-all;
         }
-
-        .articleHeadline {
-            line-height: 1.5;
-        }
     </style>
+
 </head>
 
 <body>
@@ -29,8 +27,8 @@
     <div class="container">
 
         <!-- Jumbotron for Title -->
-        <div class="jumbotron" style="background-color: #20315A ; color: white; height: 50%;">
-            <h1 class="text-center">
+        <div class="jumbotron" style="background-color: #20315A ; color: white;">
+            <h1 class="text-center" id="weatherHeadline">
                 <strong>Weather Dashboard</strong>
             </h1>
         </div>
@@ -53,27 +51,27 @@
                             <div class="form-group">
                                 <label for="search"></label>
                                 <input type="text" class="form-control" id="search-term">
-                                <button type="button" class="btn btn-default float-right">
+                                <button type="button" class="btn btn-secondary">
                                     <i class="fa fa-search"></i></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-                <!-- This column will display the city weather parameters -->
+            <!-- This column will display the city weather parameters -->
 
-                <div class="col-8">
+            <div class="col-8">
 
-                    <div class="jumbotron">
+                <div class="jumbotron">
 
 
-                        <hr class="my-4">
+                    <hr class="my-4">
 
-                    </div>
                 </div>
             </div>
         </div>
-    
+    </div>
+
 
 
 
