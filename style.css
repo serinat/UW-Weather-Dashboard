@@ -6,6 +6,10 @@ img {
     padding: 10px;
 }
 
+.btn-secondary {
+    background-color: #197fda;
+}
+
 .date {
 
     font-size: 25px;    
