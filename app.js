@@ -1,7 +1,7 @@
 //pull information from the form and build the query URL
 //function buildQueryURL() {
 // queryURL is the url we'll use to query the API
-var APIKey = "7d7302645eb74709f2eb3734bd940ded";
+var APIKey = "4ba053499928c9cc55c84c5428ed0660";
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=London&appid=" + APIKey;
 
 //build object to contain API call's query parameters
@@ -20,7 +20,7 @@ $.ajax({
         // Log the resulting object
         console.log(response);
 
-        $(".city").html("<h1>" + response.name + " Weather Details</h1>");
+        $(".city").html("<h1>" + response.name + "</h1>");
         $(".temp").text("Temperature (F) " + response.main.temp);
         $(".humidity").text("Humidity: " + response.main.humidity);
         $(".wind").text("Wind Speed: " + response.wind.speed);
