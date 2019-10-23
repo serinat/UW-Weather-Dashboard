@@ -24,6 +24,23 @@ $.ajax({
         $(".temp").text("Temperature (F) " + response.main.temp);
         $(".humidity").text("Humidity: " + response.main.humidity);
         $(".wind").text("Wind Speed: " + response.wind.speed);
+    });
 
+var APIKey = "4ba053499928c9cc55c84c5428ed0660";
+var queryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=37.75&lon=-122.37&appid=" + APIKey;
 
+$.ajax({
+    url: queryURL,
+    method: "GET"
+})
+    // We store all of the retrieved data inside of an object called "response"
+    .then(function (response) {
+
+        // Log the queryURL
+        console.log(queryURL);
+
+        // Log the resulting object
+        console.log(response);
+
+        $(".uv").text("UV index: " + response.value);
     });
