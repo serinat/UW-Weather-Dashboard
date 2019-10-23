@@ -1,4 +1,23 @@
+img {
+    float: right;
+}
+
+.jumbotron {
+    padding: 10px;
+}
+
+.date {
+
+    font-size: 25px;    
+}
+
 #search-term {
+    
     width: 70%;
     display: inline;
+}
+
+#jumbo {
+    
+    padding: 20px;
 }

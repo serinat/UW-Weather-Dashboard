@@ -62,16 +62,22 @@
 
             <div class="col-8">
 
-                <div class="jumbotron">
-            <!-- Retrieved data will be dumped here -->      
-            <div class="city"></div><div class="date"></div>  
-            <div class="temp"></div>
-            <div class="humidity"></div>
-            <div class="wind"></div>
-            <div class="uv"></div>
-
+                <div class="jumbotron jumbotron-fluid">
+                    <!-- Retrieved data will be dumped here -->
+                    <div class="row" id="jumbo">
+                    <div class="city"></div>&nbsp;&nbsp;
+                    <div class="date"></div>&nbsp;&nbsp;
+                    <div class="icon"></div>
+                    </div>
+                    
+                    <div class="temp"></div>
+                    <div class="humidity"></div>
+                    <div class="wind"></div>
+                    <div class="uv"></div>
 
                     <hr class="my-4">
+
+                    <div class="forecast"></div>
 
                 </div>
             </div>
@@ -86,6 +92,7 @@
 
     <!-- jQuery JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- Code to the JavaScript File -->
     <script src="./app.js"></script>
 
