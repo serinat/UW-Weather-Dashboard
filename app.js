@@ -39,7 +39,7 @@ $("#submitWeather").on("click", function (event) {
             console.log(response);
 
             //var weather = $("<div></div>");
-            $(".city").text(response.name);
+            $(".city").html("<h2>" + response.name + "</h2)>");
             $(".temp").text("Temperature: " + (response.main.temp) + "F");
             $(".humidity").text("Humidity: " + response.main.humidity + "%");
             $(".wind").text("Wind Speed: " + response.wind.speed + "MPH");
