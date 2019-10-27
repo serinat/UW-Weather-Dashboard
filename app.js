@@ -38,49 +38,29 @@ $("#submitWeather").on("click", function (event) {
             console.log(queryURL);
             console.log(response);
 
-            //var weather = $("<div></div>");
             $(".city").html("<h2>" + response.name + "</h2)>");
             $(".temp").text("Temperature: " + (response.main.temp) + "F");
             $(".humidity").text("Humidity: " + response.main.humidity + "%");
             $(".wind").text("Wind Speed: " + response.wind.speed + "MPH");
             $(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
-
-
-
+    
         });
 
 
     //AJAX call for uv index
-        var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        var UVIqueryURL = "https://api.openweathermap.org/data/2.5/uvi?q=&lat" + lat + "&lon=" + lon + "&appid=" + APIKey;
-        
-        var lat = response.lat;
-        var lon = response.lon;
-        getUV(lat, lon); 
+    $("#submitWeather").on("click", function (event) {
+        event.preventDefault();
+        //get date now
+        //var now = moment().format('L');
+        //$(".date").append(now);
 
-        $.ajax({
-            url: UVIqueryURL,
-            method: "GET"
-        })
-            // We store all of the retrieved data inside of an object called "response"
-            .then(function (response) {
-
-                // Log the queryURL
-                console.log(queryURL);
-
-                // Log the resulting object
-                console.log(response);
-                
-                $(".uv").text("UV index: " + response.value);
-        });
-
+        //grab text user types into search input
+        var city = $("#city").val();
 
         var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=xml&appid=" + APIKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
+        var UVIquery;
 
-        //build object to contain API call's query parameters
-        //set API key
-        //var queryParams = { "api-key": "4ba053499928c9cc55c84c5428ed0660" };
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -88,13 +68,33 @@ $("#submitWeather").on("click", function (event) {
             // We store all of the retrieved data inside of an object called "response"
             .then(function (response) {
 
-                // Log the queryURL
-                //console.log(queryURL);
+                var lat = response.coord.lat;
+                var lon = response.coord.lon;
+                getUV(lat, lon);
+            })
+        })
 
-                // Log the resulting object
-                //console.log(response);
+        function getUV(lat, lon) {
 
-                $(".forecast").text("5-Day forecast: " + response.list);
 
-            });
+                //var APIKey = "4ba053499928c9cc55c84c5428ed0660";
+                queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+
+                //build object to contain API call's query parameters
+                //set API key
+                //var queryParams = { "api-key": "4ba053499928c9cc55c84c5428ed0660" };
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    console.log(queryURL);
+                    console.log(response);
+
+                    $(".uv").text("UV index: " + response.value);
+
+
+                    //$(".forecast").text("5-Day forecast: " + response.list);
+
+                });
+            };
     });
