@@ -43,7 +43,7 @@ $("#submitWeather").on("click", function (event) {
             $(".humidity").text("Humidity: " + response.main.humidity + "%");
             $(".wind").text("Wind Speed: " + response.wind.speed + "MPH");
             $(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
-    
+
         });
 
 
@@ -58,11 +58,11 @@ $("#submitWeather").on("click", function (event) {
         var city = $("#city").val();
 
         var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
-        var UVIquery;
+        var UVqueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
+        //var UVquery;
 
         $.ajax({
-            url: queryURL,
+            url: UVqueryURL,
             method: "GET"
         })
             // We store all of the retrieved data inside of an object called "response"
@@ -72,29 +72,66 @@ $("#submitWeather").on("click", function (event) {
                 var lon = response.coord.lon;
                 getUV(lat, lon);
             })
-        })
+    })
 
-        function getUV(lat, lon) {
+    function getUV(lat, lon) {
 
 
-                //var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-                queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+        //var APIKey = "4ba053499928c9cc55c84c5428ed0660";
+        UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
 
-                //build object to contain API call's query parameters
-                //set API key
-                //var queryParams = { "api-key": "4ba053499928c9cc55c84c5428ed0660" };
+        //build object to contain API call's query parameters
+        //set API key
+        //var queryParams = { "api-key": "4ba053499928c9cc55c84c5428ed0660" };
+        $.ajax({
+            url: UVqueryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(UVqueryURL);
+            console.log(response);
+
+            $(".uv").text("UV index: " + response.value);
+
+
+            //AJAX call for 5-day forecast
+            $("#submitWeather").on("click", function (event) {
+                event.preventDefault();
+                //get date now
+                var now = moment().format('L');
+                $(".date").append(now);
+
+                //grab text user types into search input
+                var city = $("#city").val().trim();
+
+                //pull information from the form and build the query URL
+                //function buildQueryURL() {
+                // queryURL is the url we'll use to query the API
+                var APIKey = "4ba053499928c9cc55c84c5428ed0660";
+                var forecastQueryURL = "https://openweathermap.org/data/2.5/forecast/daily?q=" + city + "&cnt=5" + "&units=imperial" + "&appid=" + APIKey;
+                
+
                 $.ajax({
-                    url: queryURL,
+                    url: forecastQueryURL,
                     method: "GET"
-                }).then(function (response) {
-                    console.log(queryURL);
-                    console.log(response);
+                })
 
-                    $(".uv").text("UV index: " + response.value);
+                    .then(function (forecast) {
+                        console.log(forecast);
+                        $("#one").text(forecast.list[0].temp.day);
+
+                        $(".city").html("<h2>" + response.name + "</h2)>");
+                        $(".temp").text("Temperature: " + (response.main.temp) + "F");
+                        $(".humidity").text("Humidity: " + response.main.humidity + "%");
+                        $(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
+
+                    });
 
 
-                    //$(".forecast").text("5-Day forecast: " + response.list);
+                //$(".forecast").text("5-Day forecast: " + response.list);
 
-                });
-            };
-    });
+
+
+            });
+        });
+    };
+});
