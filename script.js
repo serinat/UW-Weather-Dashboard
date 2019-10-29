@@ -63,7 +63,7 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log(response);
             var UVindex = response.value;
-            $(".uv").text(UVindex);
+            $(".uv").text("UV index: " + UVindex);
 
         });
     };
