@@ -1,9 +1,10 @@
 $(document).ready(function () {
     $("#submitWeather").on("click", function (event) {
-        event.preventDefault();
+        //event.preventDefault();
         //get date now
         var now = moment().format('L');
         $(".date").append(now);
+        event.preventDefault();
 
         //grab text user types into search input
         var city = $("#city").val().trim();
@@ -24,9 +25,10 @@ $(document).ready(function () {
             .then(function (response) {
                 console.log(queryURL);
                 console.log(response);
+        
 
                 $(".city").html("<h2>" + response.name + "</h2)>");
-                $(".temp").text("Temperature: " + (response.main.temp) + "F");
+                $(".temp").text("Temperature: " + response.main.temp + "F");
                 $(".humidity").text("Humidity: " + response.main.humidity + "%");
                 $(".wind").text("Wind Speed: " + response.wind.speed + "MPH");
                 $(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
@@ -91,13 +93,13 @@ $(document).ready(function () {
                 url: forecastQueryURL,
                 method: "GET"
             })
-                .then(function (response) {
+                .then(function (data) {
                     console.log(forecastQueryURL);
-                    console.log(response);
+                    console.log(data);
 
                     var wf = "";
-                    wf += "<h2>" + response.city.name + "</h2>";
-                    $.each(response.list, function (index, val) {
+                    //wf += "<h2>" + response.city.name + "</h2>";
+                    $.each(data.list, function (index, val) {
                         wf += "<p>"
                         wf += "<b>Day" + index + "</b>: "
                         wf += val.main.temperature
