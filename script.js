@@ -74,7 +74,7 @@ function fiveDay(city) {
 
         //var city = $("#city").val().trim();
         var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&q=" + city + "&cnt=5";
+        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&appid=" + APIKey + "&cnt=5";
 
         $.ajax({
             url: forecastQueryURL,
@@ -85,18 +85,24 @@ function fiveDay(city) {
                 console.log(response);
                 var forecastData = response.list;
                 for (var i = 0; i < forecastData.length; i += 6) {
-                    console.log(forecastData[i])
+                    console.log(forecastData[i]);
+
+                    var postDate = response.list[i].dt_txt.split(" ")[0];
+                    var date = moment(postDate).format('L');
+                    $(".date").text(date);
+                    console.log(date);
 
                     var temp = forecastData[i].main.temp;
                     $(".temp").text("Temperature: " + temp + "F");
-                    console.log(temp)
+                    console.log(temp);
 
                     var humidity = forecastData[i].main.humidity;
                     $(".humidity").text("Humidity: " + humidity + "%");
                 
                 }
-            });
-        };
+            })
+        }
+    
 
 
         
