@@ -33,6 +33,7 @@ $(document).ready(function () {
     function getFullData(response) {
         console.log(response);
         var city = response.name;
+        var todayDate = moment(new Date ()).format('L');
         //var icon = "<img src=`http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>";
         var temp = response.main.temp;
         var humidity = response.main.humidity;
@@ -43,6 +44,7 @@ $(document).ready(function () {
 
         $(".city").html("<h2>" + city + "</h2)>");
         console.log(city);
+        $(".today").text(todayDate);
         $(".temp").text("Temperature: " + temp + "F");
         $(".humidity").text("Humidity: " + humidity + "%");
         $(".wind").text("Wind Speed: " + wind + "MPH");
@@ -74,7 +76,7 @@ function fiveDay(city) {
 
         //var city = $("#city").val().trim();
         var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&appid=" + APIKey + "&cnt=5";
+        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
         $.ajax({
             url: forecastQueryURL,
@@ -84,7 +86,7 @@ function fiveDay(city) {
                 //console.log(forecastQueryURL);
                 console.log(response);
                 var forecastData = response.list;
-                for (var i = 0; i < forecastData.length; i += 6) {
+                for (var i = 0; i < forecastData.length; i += 8) {
                     console.log(forecastData[i]);
 
                     var postDate = response.list[i].dt_txt.split(" ")[0];
@@ -98,6 +100,7 @@ function fiveDay(city) {
 
                     var humidity = forecastData[i].main.humidity;
                     $(".humidity").text("Humidity: " + humidity + "%");
+                    console.log(humidity);
                 
                 }
             })
