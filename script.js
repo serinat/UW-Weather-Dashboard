@@ -101,6 +101,7 @@ function fiveDay(city) {
                     var humidity = forecastData[i].main.humidity;
                     $(".humidity").text("Humidity: " + humidity + "%");
                     console.log(humidity);
+
                 
                 }
             })
