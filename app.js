@@ -76,11 +76,11 @@ $(document).ready(function () {
 
 
         //AJAX call for 5-day forecast
-        $("#submitWeather").on("click", function (event) {
-            event.preventDefault();
+        //$("#submitWeather").on("click", function (event) {
+            //event.preventDefault();
             //get date now
-            var now = moment().format('L');
-            $(".date").append(now);
+            //var now = moment().format('L');
+            //$(".date").append(now);
 
             //grab text user types into search input
             var city = $("#city").val().trim();
@@ -124,4 +124,3 @@ $(document).ready(function () {
                 });
         });
     });
-});
