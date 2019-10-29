@@ -46,7 +46,7 @@ $(document).ready(function () {
 
             var APIKey = "4ba053499928c9cc55c84c5428ed0660";
             var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
-            var UVquery;
+            var UVqueryURL;
 
             $.ajax({
                 url: queryURL,
@@ -59,13 +59,13 @@ $(document).ready(function () {
 
 
                     //var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-                    UVquery = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon + "&units=imperial";
+                    UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon + "&units=imperial";
 
                     $.ajax({
-                        url: UVquery,
+                        url: UVqueryURL,
                         method: "GET"
                     }).then(function (response) {
-                        console.log(UVquery);
+                        console.log(UVqueryURL);
                         console.log(response);
 
                         $(".uv").text("UV index: " + response.value);
@@ -75,42 +75,53 @@ $(document).ready(function () {
         });
 
 
-
-
-
-
         //AJAX call for 5-day forecast
-        //$("#submitWeather").on("click", function (event) {
-        //event.preventDefault();
-        //get date now
-        //var now = moment().format('L');
-        //$(".date").append(now);
+        $("#submitWeather").on("click", function (event) {
+            event.preventDefault();
+            //get date now
+            var now = moment().format('L');
+            $(".date").append(now);
 
-        //grab text user types into search input
-        //var city = $("#city").val().trim();
+            //grab text user types into search input
+            var city = $("#city").val().trim();
+            var APIKey = "4ba053499928c9cc55c84c5428ed0660";
+            var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&q=" + city + "&cnt=5";
+
+            $.ajax({
+                url: forecastQueryURL,
+                method: "GET"
+            })
+                .then(function (response) {
+                    console.log(forecastQueryURL);
+                    console.log(response);
+
+                    var wf = "";
+                    wf += "<h2>" + response.city.name + "</h2>";
+                    $.each(response.list, function (index, val) {
+                        wf += "<p>"
+                        wf += "<b>Day" + index + "</b>: "
+                        wf += val.main.temperature
+                        wf += "<img src='https://openweather.map.org/img/w/" + val.weather[0].icon + " .png'>"
+                        wf += "</p>"
+                        wf += val.main.humidity
+                    });
+                    $("#showWeatherForecast").html(wf);
 
 
-        //pull information from the form and build the query URL
-        //function buildQueryURL() {
-        // queryURL is the url we'll use to query the API
-        //function getFiveForecast(citySubmitted) {
-        //var APIKey = "4ba053499928c9cc55c84c5428ed0660";
-        //var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=${citySubmitted}&units=imperial&appid=" + APIKey;
+
+                    //$(".city").html("<h2>" + response.name + "</h2)>");
+                    //$(".temp").text("Temperature: " + (response.main.temp) + "F");
+                    //$(".humidity").text("Humidity: " + response.main.humidity + "%");
+                    //$(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
 
 
 
 
-        //$(".city").html("<h2>" + response.name + "</h2)>");
-        //$(".temp").text("Temperature: " + (response.main.temp) + "F");
-        //$(".humidity").text("Humidity: " + response.main.humidity + "%");
-        //$(".icon").html("<img src='http://openweathermap.org/img/w/" + response.weather[0].icon + ".png'>");
+                    //$(".forecast").text("5-Day forecast: " + response.list);
 
 
 
-
-        //$(".forecast").text("5-Day forecast: " + response.list);
-
-
-
+                });
+        });
     });
 });
